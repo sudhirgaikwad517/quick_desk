@@ -1,12 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser } from '../context/UserContext';
 
 function Navbar() {
+  const { logout } = useUser();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   return (
-    <nav style={{ padding: '10px', backgroundColor: '#eee' }}>
-      <Link to="/dashboard" style={{ marginRight: '10px' }}>Dashboard</Link>
-      <Link to="/profile" style={{ marginRight: '10px' }}>Profile</Link>
-      <Link to="/" style={{ float: 'right' }}>Logout</Link>
+    <nav>
+      <Link to="/dashboard">Dashboard</Link> | 
+      <Link to="/profile">Profile</Link> | 
+      <button onClick={handleLogout}>Logout</button>
     </nav>
   );
 }
